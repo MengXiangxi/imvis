@@ -18,6 +18,8 @@ class IndexTracker:
         max_index = self.X.shape[-1] - 1
         if self.index == 0 and increment == -1:
             self.index = max_index
+        elif self.index == max_index and increment == 1:
+            self.index = 0
         else:
             self.index = np.clip(self.index + increment, 0, max_index)
         self.update()
@@ -68,7 +70,6 @@ if __name__ == '__main__':
     ### https://matplotlib.org/stable/gallery/event_handling/image_slices_viewer.html
     import pydicom
     fname = "/path/to/dicom/file.dcm"
-    fname = "//192.168.2.88/home/.Qsync/Sync/Research/20231019TCHAH/visualizeTomo/869"
     ds = pydicom.dcmread(fname)
     img = ds.pixel_array
     imagesc3s(img, [0, 6000])

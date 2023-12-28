@@ -1,0 +1,6 @@
+matplotlib==3.7.2
+numpy==1.25.1
+pydicom==2.3.1
+scipy==1.11.4
+setuptools==67.8.0
+SimpleITK==2.3.1

@@ -36,3 +36,19 @@ iv.imagesc3s(img)
 ```
 
 ![imagesc3s: scroll](resources/imagesc3s_window.png)
+
+### MIP with rotation angles
+
+`mipz` allows the user to obtain a maximum intensity projection (MIP) of a 3D image along the z-axis. The user can also specify the rotation angles of the MIP.
+
+```python
+import SimpleITK as sitk
+import numpy as np
+
+img = sitk.ReadImage("/path/to/nifti")
+imarray = sitk.GetArrayFromImage(img)
+mip_array = np.zeros((36, imarray.shape[0], imarray.shape[1]))
+for i in range(0, 360, 10):
+    mip_array[int(i/10),:,:] = mipz(imarray, i)
+iv.imagesc3s(mip_array, [0, 10])
+```
