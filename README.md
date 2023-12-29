@@ -52,3 +52,11 @@ for i in range(0, 360, 10):
     mip_array[int(i/10),:,:] = mipz(imarray, i)
 iv.imagesc3s(mip_array, [0, 10])
 ```
+
+## Important notes
+
+### Standard orientation
+
+The matrix indices of the 3D images can be confusing. In this project, the author always assumes the following standard orientation, as shown in the figure below.
+
+![Standard orientation](resources/orientation.png) 
