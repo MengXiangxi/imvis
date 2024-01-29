@@ -37,6 +37,19 @@ iv.imagesc3s(img)
 
 ![imagesc3s: scroll](resources/imagesc3s_window.png)
 
+In cases where scrolling is not possible (e.g. in a Jupyter notebook), the alternative version `imagesc3slider` can be used. It allows to scroll through the slices of a 3D image using a slider.
+
+```python
+iv.imagesc3slider(img)
+```
+
+When using Jupyter notebook, the matplotlib backend can be changed to `tk` or `qt` to enable scrolling. This can be done using the following magic command:
+
+```python
+%matplotlib tk
+iv.imagesc3slider(img)
+```
+
 ### MIP with rotation angles
 
 `mipz` allows the user to obtain a maximum intensity projection (MIP) of a 3D image along the z-axis. The user can also specify the rotation angles of the MIP.
@@ -52,6 +65,14 @@ for i in range(0, 360, 10):
     mip_array[int(i/10),:,:] = mipz(imarray, i)
 iv.imagesc3s(mip_array, [0, 10])
 ```
+
+### NIFTI image resampling in reference to another image
+
+`resample_nifti_to` allows to resample a NIFTI image in reference to another image. This is useful when you want to resample a NIFTI image to the same resolution as a DICOM image.
+
+### Convert PET DICOM to NIFTI with SUV
+
+`dicom2niftiSUV` allows to convert a PET DICOM image to a NIFTI image with SUV values. The SUV values are computed using the corresponding DICOM tags.
 
 ## Important notes
 
