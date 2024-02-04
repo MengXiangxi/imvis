@@ -74,6 +74,10 @@ iv.imagesc3s(mip_array, [0, 10])
 
 `dicom2niftiSUV` allows to convert a PET DICOM image to a NIFTI image with SUV values. The SUV values are computed using the corresponding DICOM tags.
 
+### Sort files in the DICOMDIR file into hierarchical folders
+
+`sort_dicomdir` allows to sort the files in a DICOMDIR file into hierarchical folders in the `Patient/Study/Series` fashion. This might be useful when extracting the desired DICOM series from a DICOMDIR file.
+
 ## Important notes
 
 ### Standard orientation

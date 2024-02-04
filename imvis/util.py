@@ -8,6 +8,32 @@ def newfolder(path):
     else:
         return -1
     
+def newfolder2(base, dirname):
+    suffix=0
+    fullpath = os.path.join(base, dirname)
+    if not os.path.exists(fullpath):
+        os.makedirs(fullpath)
+        return fullpath
+    while os.path.exists(fullpath+str(suffix)):
+        suffix+=1
+    os.makedirs(fullpath+str(suffix))
+    return fullpath+"_"+str(suffix)
+
+def newfilename(base, fname):
+    if not os.path.exists(os.path.join(base, fname)):
+        return os.path.join(base, fname)
+    if '.' in fname:
+        name, ext = fname.split('.')
+        suffix = 0
+        while os.path.exists(os.path.join(base, name+str(suffix)+'.'+ext)):
+            suffix+=1
+        return os.path.join(base, name+"_"+str(suffix)+'.'+ext)
+    else:
+        suffix = 0
+        while os.path.exists(os.path.join(base, fname+str(suffix))):
+            suffix+=1
+        return os.path.join(base, fname+"_"+str(suffix))
+    
 def datetimestr_diff(datetimestr1, datetimestr2):
     """Calculate the time difference between two date time strings.
     Parameters
