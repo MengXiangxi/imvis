@@ -1,6 +1,8 @@
-matplotlib==3.7.2
-numpy==1.25.1
-pydicom==2.3.1
-scipy==1.11.4
-setuptools==67.8.0
+dicom2nifti==2.4.10
+matplotlib==3.8.2
+numpy==1.26.3
+pydicom==2.4.4
+scipy==1.12.0
+setuptools==69.0.3
+SimpleITK==2.3.1
 SimpleITK==2.3.1

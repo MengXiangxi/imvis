@@ -6,7 +6,7 @@ import os
 import shutil 
 import imvis.util
 
-def resample_nifti_to(nifti_in, nifti_ref, fname_out, isBQML=False):
+def resample_nifti_to(nifti_in, nifti_ref, fname_out, img_type='intensity'):
     """Resample a nifti image to the same space as another nifti image.
     Parameters
     ----------
@@ -16,12 +16,18 @@ def resample_nifti_to(nifti_in, nifti_ref, fname_out, isBQML=False):
         Path to the nifti image to be used as reference.
     fname_out : string
         Path to the resampled nifti image.
-    isBQML : bool, optional
-        If the nifti image takes a Bq/mL unit, interpolation changes the voxel size, thus the value must be adjusted to ensure the same total acvitity in the image. Default is False.
+    img_type : string, optional
+        Type of the image. Default is 'intensity'.
+        'intensity': general type, no conversion.
+        'BQML': PET or quantitative SPECT image, total counts are preserved.
+        'mask': interger mask, interpolation will not change the value.
     """
+    if not img_type in ['intensity', 'BQML', 'mask']:
+        print("Error: img_type must be 'intensity' (Default), 'BQML', or 'mask'.")
+        return -1
     img_in = sitk.ReadImage(nifti_in)
     img_ref = sitk.ReadImage(nifti_ref)
-    if isBQML==True:
+    if img_type=='BQML':
         voxel_size_in = np.prod(img_in.GetSpacing())
         voxel_size_ref = np.prod(img_ref.GetSpacing())
         SUVfactor = voxel_size_ref/voxel_size_in
@@ -29,6 +35,8 @@ def resample_nifti_to(nifti_in, nifti_ref, fname_out, isBQML=False):
     resampler = sitk.ResampleImageFilter()
     resampler.SetReferenceImage(img_ref)
     resampler.SetInterpolator(sitk.sitkLinear)
+    if img_type=='mask':
+        resampler.SetInterpolator(sitk.sitkNearestNeighbor)
     img_out = resampler.Execute(img_in)
     img_in.SetOrigin(img_ref.GetOrigin())
     img_in.SetDirection(img_ref.GetDirection())
@@ -37,6 +45,12 @@ def resample_nifti_to(nifti_in, nifti_ref, fname_out, isBQML=False):
 
 def dicom2niftiSUV(dicomdir, niftiname):
     """Convert a folder of dicom files to nifti files and apply SUV conversion.
+    Parameters
+    ----------
+    dicomdir : string
+        Path to the folder containing dicom files.
+    niftiname : string
+        Path and filename to the output nifti file.
     """
     # Convert dicom to nifti with dicom2nifti
     if imvis.util.newfolder("./tmp/") == -1:
@@ -61,7 +75,7 @@ def dicom2niftiSUV(dicomdir, niftiname):
         except KeyError:
             acquisition_datetime = ds[0x0008, 0x0022].value +\
                   ds[0x0008, 0x0032].value
-        dose = injection_dose * 2**(-imvis.util.datetimestr_diff(acquisition_datetime,radiopharm_datetime)/half_life)
+        dose = injection_dose * 2**(-util.datetimestr_diff(acquisition_datetime,radiopharm_datetime)/half_life)
     elif ds[0x0054, 0x1102].value == 'ADMIN':
         dose = injection_dose
     else:
@@ -81,5 +95,5 @@ if __name__ == "__main__":
     nifti_ref = "./test/001_CT.nii.gz"
     fname_out = "./test/001_PT_resampled.nii.gz"
     dicomdir = "./test/OSEM i8s20 nopsf_407"
-    # resample_nifti_to(nifti_in, nifti_ref, fname_out, isSUV=True)
+    # resample_nifti_to(nifti_in, nifti_ref, fname_out, img_type='BQML')
     dicom2niftiSUV(dicomdir, "./test/converted_nifti.nii.gz")

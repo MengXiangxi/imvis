@@ -52,7 +52,7 @@ img = sitk.ReadImage("/path/to/nifti")
 imarray = sitk.GetArrayFromImage(img)
 mip_array = np.zeros((36, imarray.shape[0], imarray.shape[1]))
 for i in range(0, 360, 10):
-    mip_array[int(i/10),:,:] = mipz(imarray, i)
+    mip_array[int(i/10),:,:] = iv.mipz(imarray, i)
 iv.imagesc3s(mip_array, [0, 10])
 ```
 
@@ -60,13 +60,56 @@ iv.imagesc3s(mip_array, [0, 10])
 
 `resample_nifti_to` allows to resample a NIFTI image in reference to another image. This is useful when you want to resample a NIFTI image to the same resolution as a DICOM image.
 
+```python
+def resample_nifti_to(nifti_in, nifti_ref, fname_out, img_type='intensity'):
+    """Resample a nifti image to the same space as another nifti image.
+    Parameters
+    ----------
+    nifti_in : string
+        Path to the nifti image to be resampled.
+    nifti_ref : string
+        Path to the nifti image to be used as reference.
+    fname_out : string
+        Path to the resampled nifti image.
+    img_type : string, optional
+        Type of the image. Default is 'intensity'.
+        'intensity': general type, no conversion.
+        'BQML': PET or quantitative SPECT image, total counts are preserved.
+        'mask': interger mask, interpolation will not change the value.
+    """
+```
+
 ### Convert PET DICOM to NIFTI with SUV
 
 `dicom2niftiSUV` allows to convert a PET DICOM image to a NIFTI image with SUV values. The SUV values are computed using the corresponding DICOM tags.
 
+```python
+def dicom2niftiSUV(dicomdir, niftiname):
+    """Convert a folder of dicom files to nifti files and apply SUV conversion.
+    Parameters
+    ----------
+    dicomdir : string
+        Path to the folder containing dicom files.
+    niftiname : string
+        Path and filename to the output nifti file.
+    """
+```
+
 ### Sort files in the DICOMDIR file into hierarchical folders
 
-`sort_dicomdir` allows to sort the files in a DICOMDIR file into hierarchical folders in the `Patient/Study/Series` fashion. This might be useful when extracting the desired DICOM series from a DICOMDIR file.
+`dicomdir_split` allows to sort the files in a DICOMDIR file into hierarchical folders in the `Patient/Study/Series` fashion. This might be useful when extracting the desired DICOM series from a DICOMDIR file.
+
+```python
+def dicomdir_split(dicomdir_path, output_folder):
+    ''' Split DICOM files in the DICOMDIR into different folders based according to patient, studies, and series.
+    Parameters
+    ----------
+    dicomdir_path : string
+        Path to the DICOMDIR file.
+    output_folder : string
+        Path to the output folder.
+    '''
+```
 
 ## Important notes
 

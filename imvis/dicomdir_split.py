@@ -6,6 +6,12 @@ import imvis.util
 
 def dicomdir_split(dicomdir_path, output_folder):
     ''' Split DICOM files in the DICOMDIR into different folders based according to patient, studies, and series.
+    Parameters
+    ----------
+    dicomdir_path : string
+        Path to the DICOMDIR file.
+    output_folder : string
+        Path to the output folder.
     '''
     dicom_dir = os.path.dirname(dicomdir_path)
     ds = pydicom.dcmread(dicomdir_path)
