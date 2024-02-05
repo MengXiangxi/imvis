@@ -4,20 +4,10 @@ Interactive visualization of 3D medical images in python
 
 ## Installation
 
-First, clone the repository and install the dependencies:
+The package can be installed from PyPI using pip:
 
 ```bash
-git clone xxx
-```
-
-Then, build and install the package (in your favorite conda env or venv):
-
-```bash
-pip install --upgrade setuptools
-pip install --upgrade build
-
-python -m build
-pip install --force-reinstall ./dist/imvis-x-x-x-py3-none-any.whl
+pip install imvis
 ```
 
 ## Features
@@ -35,7 +25,7 @@ img = ds.pixel_array
 iv.imagesc3s(img)
 ```
 
-![imagesc3s: scroll](resources/imagesc3s_window.png)
+![imagesc3s: scroll](https://github.com/MengXiangxi/imvis/raw/main/resources/imagesc3s_window.png)
 
 In cases where scrolling is not possible (e.g. in a Jupyter notebook), the alternative version `imagesc3slider` can be used. It allows to scroll through the slices of a 3D image using a slider.
 
@@ -84,4 +74,4 @@ iv.imagesc3s(mip_array, [0, 10])
 
 The matrix indices of the 3D images can be confusing. In this project, the author always assumes the following standard orientation, as shown in the figure below.
 
-![Standard orientation](resources/orientation.png)
+![Standard orientation](https://github.com/MengXiangxi/imvis/raw/main/resources/orientation.png)
