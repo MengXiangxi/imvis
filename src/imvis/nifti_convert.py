@@ -4,7 +4,7 @@ import pydicom
 import dicom2nifti
 import os
 import shutil 
-import imvis.util
+from imvis import utils
 
 def resample_nifti_to(nifti_in, nifti_ref, fname_out, img_type='intensity'):
     """Resample a nifti image to the same space as another nifti image.
@@ -53,7 +53,7 @@ def dicom2niftiSUV(dicomdir, niftiname):
         Path and filename to the output nifti file.
     """
     # Convert dicom to nifti with dicom2nifti
-    if imvis.util.newfolder("./tmp/") == -1:
+    if utils.newfolder("./tmp/") == -1:
         print("Error: Cannot create folder ./tmp/")
         return -1
     dicom2nifti.convert_directory(dicomdir, "./tmp/")
@@ -75,7 +75,7 @@ def dicom2niftiSUV(dicomdir, niftiname):
         except KeyError:
             acquisition_datetime = ds[0x0008, 0x0022].value +\
                   ds[0x0008, 0x0032].value
-        dose = injection_dose * 2**(-util.datetimestr_diff(acquisition_datetime,radiopharm_datetime)/half_life)
+        dose = injection_dose * 2**(-utils.datetimestr_diff(acquisition_datetime,radiopharm_datetime)/half_life)
     elif ds[0x0054, 0x1102].value == 'ADMIN':
         dose = injection_dose
     else:
