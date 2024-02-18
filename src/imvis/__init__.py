@@ -4,4 +4,3 @@ from imvis.mipz import mipz
 from imvis.nifti_convert import resample_nifti_to
 from imvis.nifti_convert import dicom2niftiSUV
 from imvis.dicomdir_split import dicomdir_split
-from imvis.util import *
