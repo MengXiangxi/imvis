@@ -40,6 +40,10 @@ When using Jupyter notebook, the matplotlib backend can be changed to `tk` or `q
 iv.imagesc3slider(img)
 ```
 
+![imagesc3slider: slide](https://github.com/MengXiangxi/imvis/raw/main/resources/imagesc3slider_window.png)
+
+Slide the bar to nevigate through slices.
+
 ### MIP with rotation angles
 
 `mipz` allows the user to obtain a maximum intensity projection (MIP) of a 3D image along the z-axis. The user can also specify the rotation angles of the MIP.
