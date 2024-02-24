@@ -91,9 +91,9 @@ def dicom2niftiSUV(dicomdir, niftiname):
     sitk.WriteImage(img, niftiname)
 
 if __name__ == "__main__":
-    nifti_in = "./test/001_PT.nii.gz"
-    nifti_ref = "./test/001_CT.nii.gz"
-    fname_out = "./test/001_PT_resampled.nii.gz"
-    dicomdir = "./test/OSEM i8s20 nopsf_407"
+    nifti_in = "./samples/001_PT.nii.gz"
+    nifti_ref = "./samples/001_CT.nii.gz"
+    fname_out = "./samples/001_PT_resampled.nii.gz"
+    dicomdir = "./samples/OSEM i8s20 nopsf_407"
     # resample_nifti_to(nifti_in, nifti_ref, fname_out, img_type='BQML')
-    dicom2niftiSUV(dicomdir, "./test/converted_nifti.nii.gz")
+    dicom2niftiSUV(dicomdir, "./samples/converted_nifti.nii.gz")

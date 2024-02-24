@@ -49,4 +49,4 @@ def dicomdir_split(dicomdir_path, output_folder):
         shutil.copyfile(dicom_src, dicom_destin)
 
 if __name__ == "__main__":
-    dicomdir_split('/path/to/DICOMDIR', './test/output/')
+    dicomdir_split('/path/to/DICOMDIR', './samples/output/')
