@@ -7,8 +7,9 @@
 #   all-features: false
 #   with-sources: false
 
---trusted-host mirrors.aliyun.com
 -e file:.
+colorama==0.4.6
+    # via pytest
 contourpy==1.2.0
     # via matplotlib
 cycler==0.12.1
@@ -17,6 +18,8 @@ dicom2nifti==2.4.10
     # via imvis
 fonttools==4.49.0
     # via matplotlib
+iniconfig==2.0.0
+    # via pytest
 kiwisolver==1.4.5
     # via matplotlib
 matplotlib==3.8.3
@@ -33,13 +36,17 @@ numpy==1.26.4
 packaging==23.2
     # via matplotlib
     # via nibabel
+    # via pytest
 pillow==10.2.0
     # via matplotlib
+pluggy==1.4.0
+    # via pytest
 pydicom==2.4.4
     # via dicom2nifti
     # via imvis
 pyparsing==3.1.1
     # via matplotlib
+pytest==8.0.1
 python-dateutil==2.8.2
     # via matplotlib
 python-gdcm==3.0.23
