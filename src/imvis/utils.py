@@ -16,7 +16,7 @@ def newfolder2(base, dirname):
         return fullpath
     while os.path.exists(fullpath+str(suffix)):
         suffix+=1
-    os.makedirs(fullpath+str(suffix))
+    os.makedirs(fullpath+"_"+str(suffix))
     return fullpath+"_"+str(suffix)
 
 def newfilename(base, fname):

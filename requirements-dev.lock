@@ -31,7 +31,7 @@ fonttools==4.49.0
     # via matplotlib
 iniconfig==2.0.0
     # via pytest
-ipykernel==6.29.2
+ipykernel==6.29.3
 ipython==8.22.1
     # via ipykernel
 jedi==0.19.1
@@ -85,7 +85,7 @@ pygments==2.17.2
     # via ipython
 pyparsing==3.1.1
     # via matplotlib
-pytest==8.0.1
+pytest==8.0.2
 python-dateutil==2.8.2
     # via jupyter-client
     # via matplotlib
