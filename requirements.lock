@@ -7,7 +7,6 @@
 #   all-features: false
 #   with-sources: false
 
---trusted-host mirrors.aliyun.com
 -e file:.
 contourpy==1.2.0
     # via matplotlib

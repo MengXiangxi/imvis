@@ -38,9 +38,9 @@ def resample_nifti_to(nifti_in, nifti_ref, fname_out, img_type='intensity'):
     if img_type=='mask':
         resampler.SetInterpolator(sitk.sitkNearestNeighbor)
     img_out = resampler.Execute(img_in)
-    img_in.SetOrigin(img_ref.GetOrigin())
-    img_in.SetDirection(img_ref.GetDirection())
-    img_in.SetSpacing(img_ref.GetSpacing())
+    img_out.SetOrigin(img_ref.GetOrigin())
+    img_out.SetDirection(img_ref.GetDirection())
+    img_out.SetSpacing(img_ref.GetSpacing())
     sitk.WriteImage(img_out, fname_out)
 
 def LBW(weight, height, gender):
@@ -136,3 +136,4 @@ if __name__ == "__main__":
     dicomdir = "./samples/OSEM i8s20 nopsf_407"
     # resample_nifti_to(nifti_in, nifti_ref, fname_out, img_type='BQML')
     dicom2niftiSUV(dicomdir, "./samples/converted_nifti_LBM.nii.gz", "LBW")
+
