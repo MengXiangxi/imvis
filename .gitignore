@@ -10,5 +10,6 @@ wheels/
 .venv
 
 # User's specific files
-/test
+/samples
 local_build.md
+*/.ipynb_checkpoints

@@ -43,6 +43,32 @@ def resample_nifti_to(nifti_in, nifti_ref, fname_out, img_type='intensity'):
     img_in.SetSpacing(img_ref.GetSpacing())
     sitk.WriteImage(img_out, fname_out)
 
+def LBW(weight, height, gender):
+    """Calculate lean body weight.
+    Ref: Lodge, Martin A., and Richard L. Wahl. "Practical PERCIST: a simplified guide to PET response criteria in solid tumors 1.0." Radiology 280.2 (2016): 576.
+
+    Parameters
+    ----------
+    weight : float
+        Total body weight in kg.
+    height : float
+        Height in cm
+    gender : string
+        'F' or 'M'
+    Returns
+    -------
+    lbw : float
+        Lean body weight in kg.
+    """
+    if gender=='M':
+        lbw = 1.10 * weight  - 128.0 * (weight**2/height**2)
+    elif gender=='F':
+        lbw = 1.07 * weight  - 148.0 * (weight**2/height**2)
+    else:
+        print("Wrong gender parameter, should be 'F or 'M'.")
+        return -1
+    return lbw
+        
 def dicom2niftiSUV(dicomdir, niftiname,bodyweight="TBW"):
     """Convert a folder of dicom files to nifti files and apply SUV conversion.
     Parameters
@@ -51,6 +77,10 @@ def dicom2niftiSUV(dicomdir, niftiname,bodyweight="TBW"):
         Path to the folder containing dicom files.
     niftiname : string
         Path and filename to the output nifti file.
+    bodyweight : string, optional
+        Type of body weight. Default is "TBW".
+        "TBW": total body weight.
+        "LBW": lean body weight.
     """
     # Convert dicom to nifti with dicom2nifti
     if utils.newfolder("./tmp/") == -1:
@@ -68,15 +98,12 @@ def dicom2niftiSUV(dicomdir, niftiname,bodyweight="TBW"):
     weight = ds[0x0010, 0x1030].value
     
     # calculate weight
-    if bodyweight == "TBW":
-        weight = weight
-    elif bodyweight == "LBW":
+    if bodyweight == "LBW":
         gender = ds.PatientSex
         height = ds.PatientSize * 100
-        if gender == 'M':
-            weight = 0.32810 * weight  + 0.33929 * height - 29.5336
-        elif gender == 'F':
-            weight = 0.29569 * weight  + 0.41813 * height - 43.2993
+        LBW(weight, height, gender)
+    else:
+        weight = weight
     
     if half_life <= 0:
         print("Error: Half life is not positive.")
@@ -103,9 +130,9 @@ def dicom2niftiSUV(dicomdir, niftiname,bodyweight="TBW"):
     sitk.WriteImage(img, niftiname)
 
 if __name__ == "__main__":
-    nifti_in = "./test/001_PT.nii.gz"
-    nifti_ref = "./test/001_CT.nii.gz"
-    fname_out = "./test/001_PT_resampled.nii.gz"
-    dicomdir = "./test/OSEM i8s20 nopsf_407"
+    nifti_in = "./samples/001_PT.nii.gz"
+    nifti_ref = "./samples/001_CT.nii.gz"
+    fname_out = "./samples/001_PT_resampled.nii.gz"
+    dicomdir = "./samples/OSEM i8s20 nopsf_407"
     # resample_nifti_to(nifti_in, nifti_ref, fname_out, img_type='BQML')
-    dicom2niftiSUV(dicomdir, "./test/converted_nifti.nii.gz")
+    dicom2niftiSUV(dicomdir, "./samples/converted_nifti_LBM.nii.gz", "LBW")
