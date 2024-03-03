@@ -12,3 +12,4 @@ wheels/
 # User's specific files
 /samples
 local_build.md
+*/.ipynb_checkpoints

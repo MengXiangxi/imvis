@@ -43,7 +43,33 @@ def resample_nifti_to(nifti_in, nifti_ref, fname_out, img_type='intensity'):
     img_out.SetSpacing(img_ref.GetSpacing())
     sitk.WriteImage(img_out, fname_out)
 
-def dicom2niftiSUV(dicomdir, niftiname):
+def LBW(weight, height, gender):
+    """Calculate lean body weight.
+    Ref: Lodge, Martin A., and Richard L. Wahl. "Practical PERCIST: a simplified guide to PET response criteria in solid tumors 1.0." Radiology 280.2 (2016): 576.
+
+    Parameters
+    ----------
+    weight : float
+        Total body weight in kg.
+    height : float
+        Height in cm
+    gender : string
+        'F' or 'M'
+    Returns
+    -------
+    lbw : float
+        Lean body weight in kg.
+    """
+    if gender=='M':
+        lbw = 1.10 * weight  - 128.0 * (weight**2/height**2)
+    elif gender=='F':
+        lbw = 1.07 * weight  - 148.0 * (weight**2/height**2)
+    else:
+        print("Wrong gender parameter, should be 'F or 'M'.")
+        return -1
+    return lbw
+        
+def dicom2niftiSUV(dicomdir, niftiname,bodyweight="TBW"):
     """Convert a folder of dicom files to nifti files and apply SUV conversion.
     Parameters
     ----------
@@ -51,11 +77,15 @@ def dicom2niftiSUV(dicomdir, niftiname):
         Path to the folder containing dicom files.
     niftiname : string
         Path and filename to the output nifti file.
+    bodyweight : string, optional
+        Type of body weight. Default is "TBW".
+        "TBW": total body weight.
+        "LBW": lean body weight.
     """
     # Convert dicom to nifti with dicom2nifti
     if utils.newfolder("./tmp/") == -1:
         print("Error: Cannot create folder ./tmp/")
-        return -1
+        # return -1
     dicom2nifti.convert_directory(dicomdir, "./tmp/")
     shutil.copyfile(os.path.join("./tmp/", os.listdir("./tmp")[0]), niftiname)
     shutil.rmtree("./tmp/")
@@ -66,6 +96,15 @@ def dicom2niftiSUV(dicomdir, niftiname):
     injection_dose = float(ds.RadiopharmaceuticalInformationSequence[0].RadionuclideTotalDose)
     half_life = float(ds.RadiopharmaceuticalInformationSequence[0].RadionuclideHalfLife)
     weight = ds[0x0010, 0x1030].value
+    
+    # calculate weight
+    if bodyweight == "LBW":
+        gender = ds.PatientSex
+        height = ds.PatientSize * 100
+        LBW(weight, height, gender)
+    else:
+        weight = weight
+    
     if half_life <= 0:
         print("Error: Half life is not positive.")
         return -1
@@ -96,4 +135,5 @@ if __name__ == "__main__":
     fname_out = "./samples/001_PT_resampled.nii.gz"
     dicomdir = "./samples/OSEM i8s20 nopsf_407"
     # resample_nifti_to(nifti_in, nifti_ref, fname_out, img_type='BQML')
-    dicom2niftiSUV(dicomdir, "./samples/converted_nifti.nii.gz")
+    dicom2niftiSUV(dicomdir, "./samples/converted_nifti_LBM.nii.gz", "LBW")
+
