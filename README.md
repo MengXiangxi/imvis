@@ -82,7 +82,9 @@ def resample_nifti_to(nifti_in, nifti_ref, fname_out, img_type='intensity'):
 ### Convert PET DICOM to NIFTI with SUV
 
 `dicom2niftiSUV` allows to convert a PET DICOM image to a NIFTI image with SUV values. The SUV values are computed using the corresponding DICOM tags.
+
 - bodyweight: "TBW" (total body weight) or "LBW" (lean body weight)
+
 ```python
 def dicom2niftiSUV(dicomdir, niftiname,bodyweight="TBW"):
     """Convert a folder of dicom files to nifti files and apply SUV conversion.

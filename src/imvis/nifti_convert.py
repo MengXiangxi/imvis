@@ -135,5 +135,4 @@ if __name__ == "__main__":
     fname_out = "./samples/001_PT_resampled.nii.gz"
     dicomdir = "./samples/OSEM i8s20 nopsf_407"
     # resample_nifti_to(nifti_in, nifti_ref, fname_out, img_type='BQML')
-    dicom2niftiSUV(dicomdir, "./samples/converted_nifti_LBM.nii.gz", "LBW")
 
