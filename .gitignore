@@ -13,3 +13,6 @@ wheels/
 /samples
 local_build.md
 */.ipynb_checkpoints
+
+# other
+.vscode/
