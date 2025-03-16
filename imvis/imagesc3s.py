@@ -120,7 +120,7 @@ if __name__ == '__main__':
     ### Based on the example from the matplotlib documentation
     ### https://matplotlib.org/stable/gallery/event_handling/image_slices_viewer.html
     import SimpleITK as sitk
-    fname = "./samples/001_CT.nii.gz"
+    fname = "./test/001_CT.nii.gz"
     imObj = sitk.ReadImage(fname)
     img = sitk.GetArrayFromImage(imObj)
     imagesc3slider(img, [-100, 300], 'gray')
