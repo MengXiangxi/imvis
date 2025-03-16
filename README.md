@@ -25,7 +25,7 @@ img = ds.pixel_array
 iv.imagesc3s(img)
 ```
 
-![imagesc3s: scroll](https://github.com/MengXiangxi/imvis/raw/main/resources/imagesc3s_window.png)
+![imagesc3s: scroll](https://github.com/MengXiangxi/imvis/raw/main/docs/imagesc3s_window.png)
 
 In cases where scrolling is not possible (e.g. in a Jupyter notebook), the alternative version `imagesc3slider` can be used. It allows to scroll through the slices of a 3D image using a slider.
 
@@ -119,4 +119,4 @@ def dicomdir_split(dicomdir_path, output_folder):
 
 The matrix indices of the 3D images can be confusing. In this project, the author always assumes the following standard orientation, as shown in the figure below.
 
-![Standard orientation](https://github.com/MengXiangxi/imvis/raw/main/resources/orientation.png)
+![Standard orientation](https://github.com/MengXiangxi/imvis/raw/main/docs/orientation.png)

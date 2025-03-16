@@ -1,6 +1,6 @@
 [project]
 name = "imvis"
-version = "0.0.9"
+version = "0.0.9.1"
 description = "Interactive visualization and processing of 3D medical images in python"
 authors = [
     { name = "Xiangxi Meng", email = "mengxiangxi@pku.edu.cn" }
