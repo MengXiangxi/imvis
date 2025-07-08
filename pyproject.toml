@@ -1,6 +1,6 @@
 [project]
 name = "imvis"
-version = "0.0.9.1"
+version = "0.0.9.2"
 description = "Interactive visualization and processing of 3D medical images in python"
 authors = [
     { name = "Xiangxi Meng", email = "mengxiangxi@pku.edu.cn" }
@@ -29,6 +29,7 @@ dev-dependencies = [
     "pytest>=8.0.1",
     "ipykernel>=6.29.2",
 ]
+packages = [{include = "imvis"}]
 
 [tool.hatch.metadata]
 allow-direct-references = true
