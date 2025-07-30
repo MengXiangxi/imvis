@@ -2,7 +2,10 @@ import pydicom
 import pydicom.fileset
 import os
 import shutil
-import util
+try:
+    from . import util
+except ImportError:
+    import util
 
 def dicomdir_split(dicomdir_path, output_folder):
     ''' Split DICOM files in the DICOMDIR into different folders based according to patient, studies, and series.

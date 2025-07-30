@@ -4,7 +4,10 @@ import pydicom
 import dicom2nifti
 import os
 import shutil 
-import util
+try:
+    from . import util
+except ImportError:
+    import util
 
 def resample_nifti_to(nifti_in, nifti_ref, fname_out, isBQML=False):
     """Resample a nifti image to the same space as another nifti image.

@@ -32,8 +32,11 @@ def mipz(img, rot=0, space=[0, 0]):
 
 if __name__ == "__main__":
     import SimpleITK as sitk
-    import imagesc3s
-    img = sitk.ReadImage("./test/001_PT.nii.gz")
+    try:
+        from . import imagesc3s
+    except ImportError:
+        import imagesc3s
+    img = sitk.ReadImage("./samples/001_PT.nii.gz")
     imarray = sitk.GetArrayFromImage(img)
     imshape = mipz(imarray, space=[3.125,2.886]).shape
     mip_array = np.zeros((36, imshape[0], imshape[1]))

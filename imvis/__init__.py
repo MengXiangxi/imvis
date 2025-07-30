@@ -6,7 +6,7 @@ from .dicomdir_split import dicomdir_split
 from .util import *
 
 # Define package-level variables (optional)
-__version__ = "1.0.0"
+__version__ = "0.0.9.4"
 __author__ = "Your Name"
 
 # Control what gets imported with `from imvis import *` (optional)
