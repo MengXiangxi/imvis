@@ -1,6 +1,6 @@
 [project]
 name = "imvis"
-version = "0.0.9.1"
+version = "0.1.1"
 description = "Interactive visualization and processing of 3D medical images in python"
 authors = [
     { name = "Xiangxi Meng", email = "mengxiangxi@pku.edu.cn" }
@@ -16,8 +16,6 @@ dependencies = [
 readme = "README.md"
 requires-python = ">= 3.8"
 
-[project.scripts]
-hello = "imvis:hello"
 
 [build-system]
 requires = ["hatchling"]
@@ -27,11 +25,30 @@ build-backend = "hatchling.build"
 managed = true
 dev-dependencies = [
     "pytest>=8.0.1",
+    "pytest-cov>=4.0.0",
     "ipykernel>=6.29.2",
 ]
+
+[tool.rye.scripts]
+test = "pytest tests/test_imvis.py -v"
+test-cov = "pytest tests/test_imvis.py --cov=imvis --cov-report=html"
+test-quick = "pytest tests/test_imvis.py -x"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
 
 [tool.hatch.metadata]
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/imvis"]
+packages = ["imvis"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+    "pytest-cov>=5.0.0",
+]

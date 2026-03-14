@@ -3,13 +3,13 @@ from .imagesc3s import imagesc3s, imagesc3slider
 from .mipz import mipz
 from .nifti_convert import resample_nifti_to, dicom2niftiSUV
 from .dicomdir_split import dicomdir_split
-from .util import *
+from .util import newfolder2, newfilename, datetimestr_diff, sanitize_path_component
 
-# Define package-level variables (optional)
-__version__ = "1.0.0"
-__author__ = "Your Name"
+# Define package-level variables
+__version__ = "0.1.1"
+__author__ = "Xiangxi Meng"
 
-# Control what gets imported with `from imvis import *` (optional)
+# Control what gets imported with `from imvis import *`
 __all__ = [
     'imagesc3s',
     'imagesc3slider',
@@ -17,4 +17,8 @@ __all__ = [
     'resample_nifti_to',
     'dicom2niftiSUV',
     'dicomdir_split',
+    'newfolder2',
+    'newfilename',
+    'datetimestr_diff',
+    'sanitize_path_component',
 ]
