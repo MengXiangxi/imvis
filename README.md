@@ -2,12 +2,43 @@
 
 Interactive visualization of 3D medical images in python
 
+[![PyPI version](https://badge.fury.io/py/imvis.svg)](https://badge.fury.io/py/imvis)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+
 ## Installation
 
 The package can be installed from PyPI using pip:
 
 ```bash
 pip install imvis
+```
+
+## Development Setup
+
+This project uses [UV](https://github.com/astral-sh/uv) for dependency management.
+
+### Install UV
+
+```bash
+# Windows (PowerShell)
+irm https://astral.sh/uv/install.ps1 | iex
+
+# Linux/macOS
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+### Setup Development Environment
+
+```bash
+# Clone the repository
+git clone https://github.com/MengXiangxi/imvis.git
+cd imvis
+
+# Install dependencies
+uv sync
+
+# Run tests
+uv run pytest tests/test_imvis.py -v
 ```
 
 ## Features
@@ -112,11 +143,3 @@ def dicomdir_split(dicomdir_path, output_folder):
         Path to the output folder.
     '''
 ```
-
-## Important notes
-
-### Standard orientation
-
-The matrix indices of the 3D images can be confusing. In this project, the author always assumes the following standard orientation, as shown in the figure below.
-
-![Standard orientation](https://github.com/MengXiangxi/imvis/raw/main/docs/orientation.png)

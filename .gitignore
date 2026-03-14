@@ -9,10 +9,26 @@ wheels/
 # venv
 .venv
 
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+.hypothesis/
+
 # User's specific files
 /samples
-local_build.md
 */.ipynb_checkpoints
+local_build.md
+docs/reports/
 
-# other
-.vscode
+# IDE
+.vscode/
+.idea/
+
+# Claude Code
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -13,7 +13,6 @@ class IndexTracker:
         self.update()
 
     def on_scroll(self, event):
-        # print(event.button, event.step)
         increment = 1 if event.button == 'up' else -1
         max_index = self.X.shape[-1] - 1
         if self.index == 0 and increment == -1:
@@ -45,7 +44,7 @@ def imagesc3s(mat3d, colorrange=None, cmap='hot'):
     if not isinstance(mat3d, np.ndarray):
         mat3d = np.array(mat3d)
 
-    if colorrange == None:
+    if colorrange is None:
         colorrange = [0, np.max(mat3d)*0.1]
 
     if len(colorrange) != 2 or colorrange[0] > colorrange[1]:
@@ -78,7 +77,7 @@ def imagesc3slider(mat3d, colorrange=None, cmap='hot'):
     if not isinstance(mat3d, np.ndarray):
         mat3d = np.array(mat3d)
 
-    if colorrange == None:
+    if colorrange is None:
         colorrange = [0, np.max(mat3d)*0.1]
 
     if len(colorrange) != 2 or colorrange[0] > colorrange[1]:

@@ -1,38 +1,79 @@
 import os
 import datetime
+import re
 
-def newfolder(path):
-    if not os.path.exists(path):
-        os.makedirs(path)
-        return 0
-    else:
-        return -1
-    
+def sanitize_path_component(name):
+    """Sanitize user input for safe use in file paths.
+
+    Removes path separators and dangerous characters to prevent path traversal attacks.
+
+    Parameters
+    ----------
+    name : str
+        The path component to sanitize (e.g., PatientID, StudyDescription).
+
+    Returns
+    -------
+    str
+        Sanitized path component safe for use in file paths.
+    """
+    # Convert to string and remove path separators and dangerous characters
+    safe = re.sub(r'[^\w\s-]', '_', str(name))
+    # Remove leading/trailing whitespace and dots
+    safe = safe.strip().strip('.')
+    # Limit length to avoid filesystem issues
+    safe = safe[:255] if safe else 'unnamed'
+    return safe
+
 def newfolder2(base, dirname):
-    suffix=0
+    """Create a uniquely named folder, adding numeric suffix if needed.
+
+    Parameters
+    ----------
+    base : str
+        Base directory path.
+    dirname : str
+        Desired folder name.
+
+    Returns
+    -------
+    str
+        Path to the created folder.
+    """
+    suffix = 0
     fullpath = os.path.join(base, dirname)
     if not os.path.exists(fullpath):
         os.makedirs(fullpath)
         return fullpath
-    while os.path.exists(fullpath+str(suffix)):
-        suffix+=1
-    os.makedirs(fullpath+str(suffix))
-    return fullpath+"_"+str(suffix)
+    while os.path.exists(fullpath + "_" + str(suffix)):
+        suffix += 1
+    new_path = fullpath + "_" + str(suffix)
+    os.makedirs(new_path)
+    return new_path
 
 def newfilename(base, fname):
+    """Generate a unique filename, adding numeric suffix if needed.
+
+    Parameters
+    ----------
+    base : str
+        Base directory path.
+    fname : str
+        Desired filename.
+
+    Returns
+    -------
+    str
+        Full path to the unique filename.
+    """
     if not os.path.exists(os.path.join(base, fname)):
         return os.path.join(base, fname)
-    if '.' in fname:
-        name, ext = fname.split('.')
-        suffix = 0
-        while os.path.exists(os.path.join(base, name+str(suffix)+'.'+ext)):
-            suffix+=1
-        return os.path.join(base, name+"_"+str(suffix)+'.'+ext)
-    else:
-        suffix = 0
-        while os.path.exists(os.path.join(base, fname+str(suffix))):
-            suffix+=1
-        return os.path.join(base, fname+"_"+str(suffix))
+
+    name, ext = os.path.splitext(fname)
+    suffix = 0
+    while os.path.exists(os.path.join(base, name + "_" + str(suffix) + ext)):
+        suffix += 1
+    return os.path.join(base, name + "_" + str(suffix) + ext)
     
 def datetimestr_diff(datetimestr1, datetimestr2):
     """Calculate the time difference between two date time strings.
