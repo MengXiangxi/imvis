@@ -1,4 +1,15 @@
-# imvis
+# imvis (archived)
+
+> [!warning] 
+> ## This project has been archived
+>
+> The maintainer has found that coding agents now easily outperform this Python package.
+> 
+> This project was designed to provide snippets and shortcuts for human developers. It is no longer helpful in the context of coding agents.
+> 
+> The maintainer encourages users to adopt an agent-centered coding workflow, which can readily replace the need for this package.
+> 
+> Thank you for your support. Happy vibe coding!
 
 Interactive visualization of 3D medical images in python
 
